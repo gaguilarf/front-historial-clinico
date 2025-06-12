@@ -5,6 +5,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 ## Development server
 
 To start a local development server, run:
+VERSION DE NODE: 22.11.0
 
 ```bash
 ng serve
