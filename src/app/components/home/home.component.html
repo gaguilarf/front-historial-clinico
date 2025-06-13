@@ -31,12 +31,15 @@
       <div class="sidenav-content">
           <div class="nav-links">
             <a mat-list-item routerLink="/" class="active">
+              <img matSuffix src="assets/ic_home.png" alt="Buscar" style="width: 24px; height: 24px; margin-right: 10px;">
               <span>Inicio</span>
             </a>
             <a mat-list-item>
+              <img matSuffix src="assets/ic_usuario.png" alt="Buscar" style="width: 24px; height: 24px; margin-right: 10px;">
               <span>Mi Perfil</span>
             </a>
             <a mat-list-item>
+              <img matSuffix src="assets/ic_ayuda.png" alt="Buscar" style="width: 24px; height: 24px; margin-right: 10px;">
               <span>Ayuda</span>
             </a>
           </div>
@@ -116,11 +119,115 @@
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-row 
+              *matRowDef="let row; columns: displayedColumns;"
+              [class.selected]="selectedPatient === row"
+              (click)="selectPatient(row)">
+          </tr>
         </table>
 
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Seleccionar página">
         </mat-paginator>
+      </div>
+
+      <!-- Formulario de paciente seleccionado -->
+      <div class="patient-form-container" *ngIf="selectedPatient">
+        <h2>Información del Paciente</h2>
+        
+        <form [formGroup]="patientForm" class="patient-form">
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Estado Actual</mat-label>
+              <mat-select formControlName="estado">
+                <mat-option *ngFor="let estado of estados" [value]="estado.value">
+                  {{estado.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Fecha Ingreso</mat-label>
+              <input matInput [matDatepicker]="picker1" formControlName="fechaIngreso">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Hasta</mat-label>
+              <input matInput [matDatepicker]="picker2" formControlName="fechaHasta">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Serv. Responsable</mat-label>
+              <mat-select formControlName="servicio">
+                <mat-option *ngFor="let servicio of servicios" [value]="servicio.value">
+                  {{servicio.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Prof. Responsable</mat-label>
+              <mat-select formControlName="profesional">
+                <mat-option *ngFor="let prof of profesionales" [value]="prof.value">
+                  {{prof.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="nombre">
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Ap. Paterno</mat-label>
+              <input matInput formControlName="apellidoPaterno">
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Ap. Materno</mat-label>
+              <input matInput formControlName="apellidoMaterno">
+            </mat-form-field>
+          </div>
+        </form>
+
+
+        <div class="actions-section">
+          <h3>Acciones</h3>
+          <div class="action-buttons">
+            <button mat-raised-button color="primary" class="action-button">
+              <!-- <mat-icon>add</mat-icon> -->
+              Agregar historia
+            </button>
+            <button mat-raised-button color="accent" class="action-button">
+              <!-- <mat-icon>add_circle</mat-icon> -->
+              Nueva solicitud
+            </button>
+            <button mat-raised-button color="warn" class="action-button">
+              <!-- <mat-icon>swap_horiz</mat-icon> -->
+              Interconsulta
+            </button>
+            <button mat-raised-button class="action-button">
+              <!-- <mat-icon>healing</mat-icon> -->
+              Ingresar notas de enfermería
+            </button>
+            <button mat-raised-button class="action-button">
+              <!-- <mat-icon>local_hospital</mat-icon> -->
+              Ingresar receta médica
+            </button>
+          </div>
+        </div>
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>

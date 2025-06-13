@@ -1,4 +1,5 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -25,12 +26,30 @@ export interface Paciente {
     CommonModule,
     RouterModule,
     // Módulo de Material que contiene todos los componentes necesarios
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements AfterViewInit {
+  selectedPatient: Paciente | null = null;
+  patientForm: FormGroup;
+  estados = [
+    {value: 'hospitalizacion', viewValue: 'Hospitalización'},
+    {value: 'consulta', viewValue: 'Consulta Externa'},
+    {value: 'emergencia', viewValue: 'Emergencia'}
+  ];
+  servicios = [
+    {value: 'medicina', viewValue: 'Medicina'},
+    {value: 'cirugia', viewValue: 'Cirugía'},
+    {value: 'pediatria', viewValue: 'Pediatría'}
+  ];
+  profesionales = [
+    {value: 'dr1', viewValue: 'Dr. Juan Pérez'},
+    {value: 'dr2', viewValue: 'Dra. María Gómez'},
+    {value: 'dr3', viewValue: 'Dr. Carlos López'}
+  ];
   // Datos de ejemplo para la tabla de pacientes
   pacientes: Paciente[] = [
     { dni: '23950250', nombre: 'Alvarez Jimenez Enrique Carlos', edad: 19, fecha: '31/03/2022', hora: '10:10 AM', ubicacion: 'Sala emergencia 1' },
@@ -47,9 +66,30 @@ export class HomeComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
     // Inicializar el dataSource con los datos de ejemplo
     this.dataSource = new MatTableDataSource(this.pacientes);
+    
+    // Inicializar el formulario
+    this.patientForm = this.fb.group({
+      estado: ['hospitalizacion'],
+      fechaIngreso: [''],
+      fechaHasta: [''],
+      servicio: [''],
+      profesional: [''],
+      nombre: [''],
+      apellidoPaterno: [''],
+      apellidoMaterno: ['']
+    });
+  }
+
+  // Método para manejar la selección de un paciente
+  selectPatient(paciente: Paciente) {
+    this.selectedPatient = paciente;
+    this.patientForm.patchValue({
+      nombre: paciente.nombre,
+      // Aquí podrías mapear otros campos si es necesario
+    });
   }
 
   ngAfterViewInit() {

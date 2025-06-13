@@ -13,10 +13,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
-import { MatOptionModule } from '@angular/material/core';
+import { MatOptionModule, MatNativeDateModule } from '@angular/material/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 // CDK
 import { CdkTableModule } from '@angular/cdk/table';
@@ -37,7 +38,9 @@ const materialModules = [
   MatChipsModule,
   MatSortModule,
   MatPaginatorModule,
-  CdkTableModule
+  CdkTableModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 ];
 
 @NgModule({
