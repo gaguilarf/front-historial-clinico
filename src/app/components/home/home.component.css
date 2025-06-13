@@ -1,0 +1,326 @@
+/* Estilos generales */
+.main-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Contenedor del sidenav */
+.sidenav-container {
+  flex: 1;
+  height: 100%;
+}
+
+/* Estilos del sidenav */
+.sidenav {
+  width: 280px;
+  padding: 20px;
+  background-color: #f0f8ff;
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Logo y título */
+.logo-container {
+  text-align: center;
+  padding: 20px 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.logo {
+  max-width: 120px;
+  margin-bottom: 10px;
+}
+
+.logo-container h1 {
+  margin: 10px 0 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+/* Sección de acciones */
+.actions-section {
+  margin-bottom: 30px;
+}
+
+.actions-section h3 {
+  font-size: 0.9rem;
+  color: #666;
+  text-transform: uppercase;
+  margin: 0 0 10px 16px;
+  font-weight: 500;
+}
+
+/* Enlaces de navegación */
+.nav-links {
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+}
+
+.bottom-section a {
+  text-decoration: none;
+}
+
+/* Versión */
+.version {
+  text-align: center;
+  color: #888;
+  font-size: 0.8rem;
+  padding: 10px 0;
+  border-top: 1px solid #e0e0e0;
+  margin-top: auto;
+}
+
+/* Contenido principal */
+.content {
+  padding: 20px 40px;
+  background-color: #fafafa;
+}
+
+/* Encabezado */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.header h1 {
+  margin: 0;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+/* Contenedor de búsqueda */
+.search-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.hospitalization-select {
+  min-width: 200px;
+}
+
+.search-input {
+  min-width: 300px;
+}
+
+/* Tabla */
+.table-container {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th.mat-header-cell {
+  background-color: #f5f5f5;
+  color: #333;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 16px;
+  text-align: left;
+}
+
+td.mat-cell {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  color: #444;
+}
+
+tr.mat-row:hover {
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+/* Paginador */
+.mat-paginator {
+  background-color: #f5f5f5;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .content {
+    padding: 15px;
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .search-container {
+    flex-direction: column;
+  }
+  
+  .search-input,
+  .hospitalization-select {
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 10px;
+  }
+}
+
+/* Estilos para los campos de formulario */
+.search-input,
+.hospitalization-select {
+  width: 250px;
+  margin-left: 10px;
+}
+
+/* Remove all borders from form fields */
+.mat-mdc-form-field .mdc-notched-outline,
+.mat-mdc-form-field .mdc-notched-outline__leading,
+.mat-mdc-form-field .mdc-notched-outline__notch,
+.mat-mdc-form-field .mdc-notched-outline__trailing {
+  border: none !important;
+  border-color: transparent !important;
+}
+
+.mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline {
+  display: none !important;
+}
+
+.mat-mdc-form-field-appearance-outline .mat-mdc-form-field-infix {
+  padding: 8px 0 8px 10px !important;
+}
+
+/* Ensure form fields have white background */
+.mat-mdc-form-field {
+  background-color: white;
+  border-radius: 4px;
+  padding: 0 8px;
+  height: 60px;
+  overflow: hidden;
+}
+
+/* Style the select panel */
+.mat-mdc-select-panel {
+  background: white !important;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+}
+
+/* Remove focus borders */
+.mat-mdc-form-field.mat-focused .mat-mdc-form-field-focus-overlay {
+  opacity: 0 !important;
+}
+
+/* Remove borders from input fields */
+.mdc-text-field--outlined .mdc-notched-outline {
+  border: none !important;
+}
+
+/* Remove borders from select elements */
+.mat-mdc-select-arrow-wrapper {
+  border: none !important;
+}
+
+/* Remove borders from paginator */
+.mat-mdc-paginator {
+  border: none !important;
+}
+
+/* Remove borders from table */
+.mat-mdc-table {
+  border: none !important;
+}
+
+/* Remove cell borders */
+.mat-mdc-cell, .mat-mdc-header-cell {
+  border: none !important;
+}
+
+/* Remove row borders */
+.mat-mdc-row {
+  border: none !important;
+}
+
+/* Style the selected option */
+.mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text,
+.mat-mdc-option .mdc-list-item__primary-text {
+  padding-left: 10px !important; /* Increased left padding for selected text */
+}
+
+/* Style for the select with label */
+.select-with-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.select-label {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
+}
+
+/* Style for paginator */
+.mat-mdc-paginator {
+  background: transparent !important;
+  border-top: none !important;
+}
+
+.mat-mdc-paginator-page-size {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-mdc-paginator-page-size-label {
+  margin: 0 8px 0 0;
+}
+
+/* Ensure select text in paginator is centered */
+.mat-mdc-select-value-text {
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+
+/* Center align the version text */
+.version {
+  text-align: center;
+  width: 100%;
+  padding-left: 0;
+  margin-left: 0;
+  color: #666;
+  font-size: 0.8rem;
+}
+
+.mat-mdc-text-field-wrapper {
+  border-radius: 20px !important;
+}
+
+/* Estilos para el chip de ubicación */
+.mat-chip {
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+/* Estilos para los enlaces activos */
+.mat-list-item.active {
+  background-color: rgba(0, 0, 0, 0.04);
+  color: #3f51b5;
+  font-weight: 500;
+}
+
+.mat-list-item.active .mat-icon {
+  color: #3f51b5;
+}
