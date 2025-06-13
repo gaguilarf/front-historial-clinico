@@ -8,7 +8,7 @@
     
     <h1 class="welcome-text">Bienvenido(a)</h1>
     
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit($event)" class="login-form">
       <div class="form-group">
         <label for="dni">DNI</label>
         <input 
