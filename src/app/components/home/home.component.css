@@ -57,6 +57,7 @@
 .nav-links {
   flex: 1;
   margin-bottom: 20px;
+  font-size: large;
 }
 
 .nav-links a {
@@ -179,52 +180,107 @@ tr.mat-row.selected {
   padding-bottom: 12px;
 }
 
+/* Layout horizontal */
+.form-layout {
+  display: flex;
+  gap: 30px;
+}
+
+/* Sección del formulario (izquierda) */
 .patient-form {
-  margin-bottom: 24px;
+  flex: 3;
+  min-width: 0;
 }
 
 .form-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 15px;
   margin-bottom: 16px;
 }
 
 .form-field {
   flex: 1;
-  min-width: 200px;
+  min-width: 150px;
 }
 
-/* Estilos para la sección de acciones */
+/* Sección de acciones (derecha) */
 .actions-section {
-  margin-top: 24px;
-  padding-top: 16px;
-  border-top: 1px solid #eee;
+  flex: 1;
+  min-width: 250px;
+  padding: 16px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  align-self: flex-start;
 }
 
 .actions-section h3 {
   color: #555;
   margin-bottom: 16px;
   font-size: 1.1rem;
+  text-align: center;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .action-buttons {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .action-button {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  padding: 0 16px;
+  height: 40px;
   white-space: nowrap;
+  transition: all 0.2s;
 }
 
-.action-button mat-icon {
-  font-size: 20px;
-  height: 20px;
-  width: 20px;
+.action-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 960px) {
+  .form-layout {
+    flex-direction: column;
+  }
+  
+  .actions-section {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .action-buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .action-button {
+    flex: 1 1 45%;
+    min-width: 120px;
+  }
+}
+
+/* Ajustes para pantallas muy pequeñas */
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .form-field {
+    width: 100%;
+  }
+  
+  .action-button {
+    flex: 1 1 100%;
+  }
 }
 
 /* Estilos responsivos */
@@ -281,8 +337,23 @@ tr.mat-row.selected {
   display: none !important;
 }
 
+/* Consistent form field margins and padding */
+.mat-mdc-form-field {
+  margin: 0 10px !important;
+}
+
+.mat-mdc-form-field-infix {
+  min-width: 0 !important;
+  width: 100% !important;
+  padding: 8px 0 !important;
+}
+
+.mat-mdc-text-field-wrapper {
+  padding: 0 10px !important;
+}
+
 .mat-mdc-form-field-appearance-outline .mat-mdc-form-field-infix {
-  padding: 8px 0 8px 10px !important;
+  padding: 8px 0 !important;
 }
 
 /* Ensure form fields have white background */
@@ -312,7 +383,7 @@ tr.mat-row.selected {
 }
 
 ::ng-deep .mat-mdc-select-arrow svg {
-  transform: translate(-40%, -50%) !important;
+  transform: translate(-100%, -50%) !important;
 }
 
 

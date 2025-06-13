@@ -86,9 +86,22 @@ export class HomeComponent implements AfterViewInit {
   // Método para manejar la selección de un paciente
   selectPatient(paciente: Paciente) {
     this.selectedPatient = paciente;
+    
+    // Dividir el nombre completo en partes
+    const nameParts = paciente.nombre.trim().split(' ');
+    let nombre = '';
+    let apellidoPaterno = '';
+    let apellidoMaterno = '';
+
+    // Asignar los valores en el orden correcto
+    if (nameParts.length > 0) apellidoPaterno = nameParts[0]; // El primer elemento va a apellido materno
+    if (nameParts.length > 1) apellidoMaterno = nameParts[1]; // El segundo a apellido paterno
+    if (nameParts.length > 2) nombre = nameParts.slice(2).join(' '); // El resto a nombre
+
     this.patientForm.patchValue({
-      nombre: paciente.nombre,
-      // Aquí podrías mapear otros campos si es necesario
+      nombre: nombre,
+      apellidoPaterno: apellidoPaterno,
+      apellidoMaterno: apellidoMaterno
     });
   }
 
