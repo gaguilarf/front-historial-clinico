@@ -1,4 +1,5 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -6,7 +7,7 @@ import { RouterModule } from '@angular/router';
 // Módulos de Angular Material agrupados
 import { MaterialModule } from '../../shared/material.module';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 
 // Interfaces
@@ -27,12 +28,13 @@ export interface Paciente {
     RouterModule,
     // Módulo de Material que contiene todos los componentes necesarios
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements AfterViewInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   selectedPatient: Paciente | null = null;
   patientForm: FormGroup;
   estados = [
@@ -50,14 +52,8 @@ export class HomeComponent implements AfterViewInit {
     {value: 'dr2', viewValue: 'Dra. María Gómez'},
     {value: 'dr3', viewValue: 'Dr. Carlos López'}
   ];
-  // Datos de ejemplo para la tabla de pacientes
-  pacientes: Paciente[] = [
-    { dni: '23950250', nombre: 'Alvarez Jimenez Enrique Carlos', edad: 19, fecha: '31/03/2022', hora: '10:10 AM', ubicacion: 'Sala emergencia 1' },
-    { dni: '23950251', nombre: 'Gomez Perez Maria', edad: 25, fecha: '01/04/2022', hora: '11:30 AM', ubicacion: 'Sala emergencia 2' },
-    { dni: '23950252', nombre: 'Lopez Martinez Juan', edad: 35, fecha: '01/04/2022', hora: '02:15 PM', ubicacion: 'Sala emergencia 3' },
-    { dni: '23950253', nombre: 'Rodriguez Sanchez Ana', edad: 28, fecha: '02/04/2022', hora: '09:45 AM', ubicacion: 'Sala emergencia 1' },
-    { dni: '23950254', nombre: 'Garcia Fernandez Carlos', edad: 42, fecha: '02/04/2022', hora: '04:20 PM', ubicacion: 'Sala emergencia 2' },
-  ];
+  // Datos de pacientes cargados desde el archivo JSON
+  pacientes: Paciente[] = [];
 
   // Configuración de la tabla
   dataSource: MatTableDataSource<Paciente>;
@@ -66,24 +62,63 @@ export class HomeComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private fb: FormBuilder) {
-    // Inicializar el dataSource con los datos de ejemplo
-    this.dataSource = new MatTableDataSource(this.pacientes);
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient
+  ) {
+    // Inicializar el dataSource vacío, se llenará cuando se carguen los datos
+    this.dataSource = new MatTableDataSource<Paciente>([]);
     
-    // Inicializar el formulario
+    // Inicializar el formulario con controles deshabilitados
     this.patientForm = this.fb.group({
-      estado: ['hospitalizacion'],
-      fechaIngreso: [''],
-      fechaHasta: [''],
-      servicio: [''],
-      profesional: [''],
-      nombre: [''],
-      apellidoPaterno: [''],
-      apellidoMaterno: ['']
+      estado: {value: 'hospitalizacion', disabled: true},
+      fechaIngreso: {value: '', disabled: true},
+      fechaHasta: {value: '', disabled: true},
+      servicio: {value: '', disabled: true},
+      profesional: {value: '', disabled: true},
+      nombre: {value: '', disabled: true},
+      apellidoPaterno: {value: '', disabled: true},
+      apellidoMaterno: {value: '', disabled: true}
     });
   }
 
-  // Método para manejar la selección de un paciente
+  ngOnInit() {
+    this.loadPatients();
+  }
+
+  ngAfterViewInit() {
+    this.initializeTable();
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  private loadPatients() {
+    this.http.get<any>('assets/data/patients.json').subscribe({
+      next: (data) => {
+        this.pacientes = data.pacientes;
+        this.initializeTable();
+      },
+      error: (error) => {
+        console.error('Error al cargar los pacientes:', error);
+      }
+    });
+  }
+
+  private initializeTable() {
+    this.dataSource = new MatTableDataSource(this.pacientes);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
   selectPatient(paciente: Paciente) {
     this.selectedPatient = paciente;
     
@@ -94,31 +129,15 @@ export class HomeComponent implements AfterViewInit {
     let apellidoMaterno = '';
 
     // Asignar los valores en el orden correcto
-    if (nameParts.length > 0) apellidoPaterno = nameParts[0]; // El primer elemento va a apellido materno
-    if (nameParts.length > 1) apellidoMaterno = nameParts[1]; // El segundo a apellido paterno
-    if (nameParts.length > 2) nombre = nameParts.slice(2).join(' '); // El resto a nombre
+    if (nameParts.length > 0) apellidoPaterno = nameParts[0];
+    if (nameParts.length > 1) apellidoMaterno = nameParts[1];
+    if (nameParts.length > 2) nombre = nameParts.slice(2).join(' ');
 
+    // Actualizar el formulario con los datos del paciente seleccionado
     this.patientForm.patchValue({
       nombre: nombre,
       apellidoPaterno: apellidoPaterno,
       apellidoMaterno: apellidoMaterno
     });
   }
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
-
-  // Método para filtrar la tabla
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-
-
 }

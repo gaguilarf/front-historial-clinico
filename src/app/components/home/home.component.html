@@ -30,16 +30,16 @@
 
       <div class="sidenav-content">
           <div class="nav-links">
-            <a mat-list-item routerLink="/" class="active">
-              <img matSuffix src="assets/ic_home.png" alt="Buscar" style="width: 24px; height: 24px; margin-right: 10px;">
+            <a mat-list-item routerLink="/" class="nav-link active">
+              <img src="assets/ic_home.png" alt="Inicio" class="nav-icon">
               <span>Inicio</span>
             </a>
-            <a mat-list-item>
-              <img matSuffix src="assets/ic_usuario.png" alt="Buscar" style="width: 24px; height: 24px; margin-right: 10px;">
+            <a mat-list-item class="nav-link">
+              <img src="assets/ic_usuario.png" alt="Perfil" class="nav-icon">
               <span>Mi Perfil</span>
             </a>
-            <a mat-list-item>
-              <img matSuffix src="assets/ic_ayuda.png" alt="Buscar" style="width: 24px; height: 24px; margin-right: 10px;">
+            <a mat-list-item class="nav-link">
+              <img src="assets/ic_ayuda.png" alt="Ayuda" class="nav-icon">
               <span>Ayuda</span>
             </a>
           </div>
@@ -59,6 +59,11 @@
       <div class="header">
         <h1>Lista de Pacientes</h1>
         <div class="search-container">
+          <mat-form-field appearance="outline" class="search-input">
+            <mat-label>Búsqueda por DNI</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Buscar...">
+            <img matSuffix src="assets/lupa.png" alt="Buscar" style="width: 24px; height: 24px; margin-right: 10px;">
+          </mat-form-field>
           <div class="select-with-label">
             <span class="select-label">Tipo de servicio:</span>
             <mat-form-field appearance="outline" class="hospitalization-select">
@@ -70,11 +75,6 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <mat-form-field appearance="outline" class="search-input">
-            <mat-label>Búsqueda rápida</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Buscar...">
-            <img matSuffix src="assets/lupa.png" alt="Buscar" style="width: 24px; height: 24px; margin-right: 10px;">
-          </mat-form-field>
         </div>
       </div>
 
@@ -165,7 +165,7 @@
             <div class="form-row">
               <mat-form-field appearance="outline" class="form-field">
                 <mat-label>Serv. Responsable</mat-label>
-                <mat-select formControlName="servicio">
+                <mat-select formControlName="servicio" [disabled]="true">
                   <mat-option *ngFor="let servicio of servicios" [value]="servicio.value">
                     {{servicio.viewValue}}
                   </mat-option>
@@ -174,7 +174,7 @@
 
               <mat-form-field appearance="outline" class="form-field">
                 <mat-label>Prof. Responsable</mat-label>
-                <mat-select formControlName="profesional">
+                <mat-select formControlName="profesional" [disabled]="true">
                   <mat-option *ngFor="let prof of profesionales" [value]="prof.value">
                     {{prof.viewValue}}
                   </mat-option>
@@ -185,13 +185,13 @@
             <div class="form-row">
               <mat-form-field appearance="outline" class="form-field">
                 <mat-label>Nombre</mat-label>
-                <input matInput formControlName="nombre">
+                <input matInput formControlName="nombre" readonly>
               </mat-form-field>
 
 
               <mat-form-field appearance="outline" class="form-field">
                 <mat-label>Ap. Paterno</mat-label>
-                <input matInput formControlName="apellidoPaterno">
+                <input matInput formControlName="apellidoPaterno" readonly>
               </mat-form-field>
 
 
