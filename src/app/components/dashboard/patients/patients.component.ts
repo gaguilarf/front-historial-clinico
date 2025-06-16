@@ -1,16 +1,13 @@
-import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MaterialModule } from '../../../shared/material.module';
+import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-
-// Módulos de Angular Material agrupados
-import { MaterialModule } from '../../shared/material.module';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { HttpClient } from '@angular/common/http';
 
-// Interfaces
 export interface Paciente {
   dni: string;
   nombre: string;
@@ -21,20 +18,12 @@ export interface Paciente {
 }
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    // Módulo de Material que contiene todos los componentes necesarios
-    MaterialModule,
-    ReactiveFormsModule,
-    HttpClientModule
-  ],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-patients',
+  imports: [CommonModule, RouterModule, MaterialModule, ReactiveFormsModule],
+  templateUrl: './patients.component.html',
+  styleUrl: './patients.component.css'
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class PatientsComponent implements OnInit, AfterViewInit {
   selectedPatient: Paciente | null = null;
   patientForm: FormGroup;
   estados = [
