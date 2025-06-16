@@ -3,14 +3,12 @@
     <div class="logo-container">
         <img src="assets/logo.jpeg" alt="Hospital Salud Logo" class="logo">
       <div class="logo-text">
-        <div>HOSPITAL</div>
-        <div>SALUD</div>
       </div>
     </div>
     
     <h1 class="welcome-text">Bienvenido(a)</h1>
     
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit($event)" class="login-form">
       <div class="form-group">
         <label for="dni">DNI</label>
         <input 
@@ -48,7 +46,11 @@
       </button>
       
       <div class="forgot-password">
+<<<<<<< HEAD
         <a routerLink="/error-page">¿Olvidaste tu contraseña2?</a>
+=======
+        <a routerLink="/error-page">¿Olvidaste tu contraseña?</a>
+>>>>>>> 4a8f7a1523c65ce388bce0b398c5a9ed8621956f
       </div>
     </form>
   </div>
