@@ -8,18 +8,22 @@
 
       <div class="sidenav-content">
         <div class="nav-links">
-          <a mat-list-item routerLink="/dashboard" class="nav-link" routerLinkActive="active">
-            <img src="assets/ic_home.png" alt="Inicio" class="nav-icon">
-            <span>Inicio</span>
-          </a>
-          <a mat-list-item routerLink="profile" class="nav-link" routerLinkActive="active">
-            <img src="assets/ic_usuario.png" alt="Perfil" class="nav-icon">
-            <span>Mi Perfil</span>
-          </a>
-          <a mat-list-item class="nav-link">
-            <img src="assets/ic_ayuda.png" alt="Ayuda" class="nav-icon">
-            <span>Ayuda</span>
-          </a>
+            <a mat-list-item 
+                routerLink="/" 
+                class="nav-link" 
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }">
+                <img src="assets/ic_home.png" alt="Inicio" class="nav-icon">
+                <span>Inicio</span>
+                </a>
+            <a mat-list-item routerLink="profile" class="nav-link" routerLinkActive="active">
+                <img src="assets/ic_usuario.png" alt="Perfil" class="nav-icon">
+                <span>Mi Perfil</span>
+            </a>
+            <a mat-list-item routerLink="help" class="nav-link" routerLinkActive="active">
+                <img src="assets/ic_ayuda.png" alt="Ayuda" class="nav-icon">
+                <span>Ayuda</span>
+            </a>
         </div>
         <div class="bottom-section">
           <a mat-list-item>
