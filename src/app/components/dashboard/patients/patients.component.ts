@@ -1,12 +1,13 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MaterialModule } from '../../../shared/material.module';
 import { Router, RouterModule } from '@angular/router';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { HttpClient } from '@angular/common/http';
+import { MatIconModule } from '@angular/material/icon';
 
 export interface Paciente {
   dni: string;
@@ -19,11 +20,12 @@ export interface Paciente {
 
 @Component({
   selector: 'app-patients',
-  imports: [CommonModule, RouterModule, MaterialModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, MaterialModule, ReactiveFormsModule, MatIconModule, FormsModule],
   templateUrl: './patients.component.html',
   styleUrl: './patients.component.css'
 })
 export class PatientsComponent implements OnInit, AfterViewInit {
+  tipoServicio: string = '';
   selectedPatient: Paciente | null = null;
   patientForm: FormGroup;
   estados = [

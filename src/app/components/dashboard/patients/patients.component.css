@@ -553,3 +553,7 @@ tr.mat-row.selected {
 .mat-list-item.active .mat-icon {
   color: #3f51b5;
 }
+
+.selected {
+  background-color: #e3f2fd !important; /* Azul claro */
+}
